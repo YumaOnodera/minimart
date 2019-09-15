@@ -48,11 +48,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $err_msg = [
+            "user_id.regex" => "ユーザーIDは半角英数字とアンダーバーのみ使用可能です。"
+        ];
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'user_id' => ['required', 'string', 'max:15', 'regex:/^[a-zA-Z0-9_]+$/'],
+            'user_name' => ['required', 'string', 'max:15'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ], $err_msg);
     }
 
     /**
@@ -64,7 +69,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'user_id' => $data['user_id'],
+            'user_name' => $data['user_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

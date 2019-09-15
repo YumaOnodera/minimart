@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Route::resource('home', 'HomeController');
+Route::get('/mypage', 'MypageController@index')->name('mypage');
+Route::resource('mypage', 'MypageController');
+
+Auth::routes();
