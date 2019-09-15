@@ -10,6 +10,15 @@
     <!-- サイト説明 -->
     <meta name="description" content="Minimart(ミニマート)は、自分のお気に入りグッズを共有できるサービスです。">
 
+    <!-- Twitterカード設定 -->
+    @if (request()->is('goods/*'))
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="{{ request()->fullUrl() }}" />
+    <meta property="og:title" content="{{ $goods->goods_name }}" />
+    <meta property="og:description" content="{{ $goods->goods_description }}" />
+    <meta property="og:image" content="{{ $goods->goods_img_src }}" />
+    @endif
+
     <title>{{ config('app.name', 'Minimart') }}</title>
 
     <!-- Scripts -->

@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 use App\Goods;
 use App\Category;
 
-class HomeController extends Controller
+class GoodsController extends Controller
 {
-    public function index()
+    public function show($id)
     {
-        // Goodsテーブルの値を取得
+        // DBよりURIパラメータと同じIDを持つGoodsの情報を取得
         $goods = Goods::select(
             'goods.goods_id',
             'goods.goods_name',
@@ -24,10 +25,8 @@ class HomeController extends Controller
             )
             ->join('users','goods.introducer','=','users.id')
             ->join('category','goods.category','=','category.category_id')
-            ->get();
+            ->findOrFail($id);
 
-        // 取得した値をビュー「home」に渡す
-        return view('home', compact('goods'));
-
+        return view('goods/show', compact('goods'));
     }
 }

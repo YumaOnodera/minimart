@@ -12,10 +12,10 @@
         <tr>
           <th class="text-center text-nowrap">商品イメージ</th>
           <th class="text-center text-nowrap">商品名</th>
-          <th class="text-center text-nowrap">説明</th>
+          <th class="text-center text-nowrap">商品紹介文</th>
           <th class="text-center text-nowrap">カテゴリー</th>
           <th class="text-center text-nowrap">紹介者</th>
-          <th class="text-center text-nowrap">シェア</th>
+          <th class="text-center text-nowrap">詳細</th>
         </tr>
         @foreach($goods as $item)
         <tr>
@@ -24,13 +24,7 @@
           <td>{{ $item->goods_description }}</td>
           <td>{{ $item->category_name }}</td>
           <td>{{ $item->user_name }}</td>
-          <td><a href="https://twitter.com/share?
-          url={{ $item->goods_url }}&
-          hashtags={{ $item->goods_name }}&
-          text={{ $item->goods_url }}" 
-          rel="nofollow" 
-          target="_blank"><i class="fab fa-twitter-square fa-3x"></i></a>
-          </td>
+          <td><a class="btn btn-primary text-nowrap" href="/goods/{{ $item->goods_id }}">詳細</a></td>
         </tr>
         @endforeach
       </table>

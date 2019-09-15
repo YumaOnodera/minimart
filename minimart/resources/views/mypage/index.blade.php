@@ -12,8 +12,9 @@
         <tr>
           <th class="text-center">商品イメージ</th>
           <th class="text-center">商品名</th>
-          <th class="text-center">説明</th>
+          <th class="text-center">商品紹介文</th>
           <th class="text-center">カテゴリー</th>
+          <th class="text-center">詳細</th>
           <th class="text-center">編集</th>
           <th class="text-center">削除</th>
         </tr>
@@ -23,6 +24,7 @@
           <td>{{ $item->goods_name }}</td>
           <td>{{ $item->goods_description }}</td>
           <td>{{ $item->category_name }}</td>
+          <td><a class="btn btn-primary text-nowrap" href="/goods/{{ $item->goods_id }}">詳細</a></td>
           <td>
             <button onclick="location.href='/mypage/{{ $item->goods_id }}/edit'" class="btn btn-xs btn-success px-2 py-1" aria-label="Left Align"><i class="fas fa-edit"></i></button>
           </td>
