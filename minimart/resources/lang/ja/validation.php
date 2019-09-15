@@ -143,10 +143,15 @@ return [
     */
 
     'attributes' => [
-        'user_id' => 'ユーザーID',
-        'user name' => 'ユーザー名',
-        'email' => 'メールアドレス',
-        'password' => 'パスワード',
+        'user_id'           => 'ユーザーID',
+        'user name'         => 'ユーザー名',
+        'email'             => 'メールアドレス',
+        'password'          => 'パスワード',
+        'goods_name'        => '商品名',
+        'goods_description' => '商品紹介文',
+        'category'          => 'カテゴリー',
+        'goods_url'         => '商品サイトURL',
+        'goods_img_src'     => '商品イメージパス'
     ],
 
 ];

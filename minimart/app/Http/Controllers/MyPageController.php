@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MypageRequest;
 use App\User;
 use App\Goods;
 use App\Category;
@@ -14,6 +16,27 @@ class MyPageController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $err_msg = [
+            "goods.category" => "カテゴリーは正しい形式で入力してください。"
+        ];
+
+        return Validator::make($data, [
+            'goods_name'        => 'required|string|max:50',
+            'goods_description' => 'required|string|max:500',
+            'category'          => 'required|integer|max:3',
+            'goods_url'         => 'required|string|max:1000',
+            'goods_img_src'     => 'required|string|max:1000',
+        ], $err_msg);
     }
 
     public function index()
@@ -53,7 +76,7 @@ class MyPageController extends Controller
         return view('mypage/create', compact('goods', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(MypageRequest $request)
     {
         // ログインユーザーのIDを取得
         $user_id = Auth::id();
@@ -95,7 +118,7 @@ class MyPageController extends Controller
         return view('mypage/edit', compact('goods', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(MypageRequest $request, $id)
     {
         // ログインユーザーのIDを取得
         $user_id = Auth::id();

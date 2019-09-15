@@ -7,6 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- サイト説明 -->
+    <meta name="description" content="Minimart(ミニマート)は、自分のお気に入りグッズを共有できるサービスです。">
+
     <title>{{ config('app.name', 'Minimart') }}</title>
 
     <!-- Scripts -->
