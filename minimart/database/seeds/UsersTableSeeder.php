@@ -11,6 +11,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+
+        // 外部キー制約を一時的に外す
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         // テーブルのクリア
         DB::table('users')->truncate();
 
@@ -31,10 +35,13 @@ class UsersTableSeeder extends Seeder
             'password' =>  bcrypt('password')
             ]
         ];
-        
+
         // 登録
         foreach($users as $user) {
             \App\User::create($user);
         }
+
+        // 外部キー制約を一時的に外す
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

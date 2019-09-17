@@ -20,6 +20,7 @@ class GoodsController extends Controller
             'goods.introducer',
             'goods.goods_url',
             'goods.goods_img_src',
+            'goods.like_count',
             'users.user_name',
             'category.category_name'
             )

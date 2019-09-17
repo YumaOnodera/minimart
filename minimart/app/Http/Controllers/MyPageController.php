@@ -52,10 +52,12 @@ class MyPageController extends Controller
             'goods.introducer',
             'goods.goods_url',
             'goods.goods_img_src',
+            'goods.created_at',
             'category.category_name'
             )
             ->join('category','goods.category','=','category.category_id')
             ->where('goods.introducer', $id)
+            ->orderBy('goods.created_at', 'desc')
             ->get();
 
         // 取得した値をビュー「mypage/index」に渡す

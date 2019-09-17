@@ -11,6 +11,9 @@ class GoodsTableSeeder extends Seeder
      */
     public function run()
     {
+        // 外部キー制約を一時的に外す
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         // テーブルのクリア
         DB::table('goods')->truncate();
 
@@ -43,5 +46,8 @@ class GoodsTableSeeder extends Seeder
         foreach($goods as $item) {
             \App\Goods::create($item);
         }
+
+        // 外部キー制約を一時的に外す
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

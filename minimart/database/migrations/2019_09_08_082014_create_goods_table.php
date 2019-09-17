@@ -22,6 +22,7 @@ class CreateGoodsTable extends Migration
             $table->string('goods_url', 1000);
             $table->string('affiliate_url', 1000)->nullable();
             $table->string('goods_img_src', 1000);
+            $table->integer('like_count')->default(0);
             $table->timestamps();
         });
     }
