@@ -11,7 +11,7 @@ use App\User;
 use App\Goods;
 use App\Category;
 
-class MyPageController extends Controller
+class MypageController extends Controller
 {
     public function __construct()
     {
@@ -52,11 +52,13 @@ class MyPageController extends Controller
             'goods.introducer',
             'goods.goods_url',
             'goods.goods_img_src',
+            'goods.like_count',
             'goods.created_at',
             'category.category_name'
             )
             ->join('category','goods.category','=','category.category_id')
             ->where('goods.introducer', $id)
+            ->orderBy('goods.like_count', 'desc')
             ->orderBy('goods.created_at', 'desc')
             ->get();
 

@@ -10,16 +10,16 @@ class Like extends Model
 
     protected $primaryKey = 'id';
 
-    // public function getLikedUser($user_id, $item)
-    // {
-    //     // Goodsテーブルの値を取得
-    //     $like = Like::select(
-    //         'likes.liked_user'
-    //     )
-    //     ->where('likes.liked_user', $user_id)
-    //     ->where('likes.liked_goods', $item)
-    //     ->first();
-
-    //     return $this->liked_user;
-    // }
+    public function getLikedUser($goods_id, $user_id)
+    {
+        // Goodsテーブルの値を取得
+        $like = $this::select(
+            'likes.liked_user'
+        )
+        ->where('likes.liked_goods', $goods_id)
+        ->where('likes.liked_user', $user_id)
+        ->first();
+        
+        return $like;
+    }
 }

@@ -1,4 +1,5 @@
 @extends('layouts/app')
+@inject('like','App\Like')
 @section('content')
 <div class="container ops-main">
   <div class="row">
@@ -26,7 +27,7 @@
           <td>{{ $item->category_name }}</td>
           <td>
             <div class="btn-like">
-              @if(Auth::check() && $item->liked_user == Auth::id())
+              @if(Auth::check() && $like->getLikedUser($item->goods_id, Auth::id()))
               <i class="like-mark fas fa-heart text-danger"></i>
               @else
               <i class="like-mark far fa-heart text-danger"></i>

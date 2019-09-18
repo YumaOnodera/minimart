@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Goods;
 use App\Category;
-use App\Like;
 
 class HomeController extends Controller
 {
@@ -26,12 +25,10 @@ class HomeController extends Controller
             'goods.like_count',
             'goods.created_at',
             'users.user_name',
-            'category.category_name',
-            'likes.liked_user'
+            'category.category_name'
             )
             ->join('users','goods.introducer','=','users.id')
             ->join('category','goods.category','=','category.category_id')
-            ->leftJoin('likes','goods.goods_id','=','likes.liked_goods')
             ->orderBy('goods.like_count', 'desc')
             ->orderBy('goods.created_at', 'desc')
             ->get();

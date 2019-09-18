@@ -27,6 +27,10 @@ class CategoryTableSeeder extends Seeder
             ['category_name' => '化粧品',
             'category_description' => '美しさの定義は時代とともに変わってきた。しかし変わらないこともある。美しい人は古今東西に限らず「モテる」ということだ。',
             'category_url' => 'http://localhost:8888/category/cosmetics'
+            ],
+            ['category_name' => 'その他',
+            'category_description' => 'いずれのカテゴリーにも当てはまらない斬新かつ画期的な商品はこのカテゴリーに分類されるのだ。',
+            'category_url' => 'http://localhost:8888/category/other'
             ]
         ];
         

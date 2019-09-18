@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('home', 'HomeController');
-Route::get('/mypage', 'MypageController@index')->name('mypage');
+Route::get('/mypage', 'MypageController@index');
 Route::resource('mypage', 'MypageController');
 Route::get('/goods/{id}', 'GoodsController@show')->name('goods');
 Route::resource('goods', 'GoodsController');
