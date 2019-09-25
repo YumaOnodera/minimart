@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Goods;
-use App\Category;
 
 class HomeController extends Controller
 {
@@ -29,6 +28,7 @@ class HomeController extends Controller
             )
             ->join('users','goods.introducer','=','users.id')
             ->join('category','goods.category','=','category.category_id')
+            ->whereNull('users.deleted_at')
             ->orderBy('goods.like_count', 'desc')
             ->orderBy('goods.created_at', 'desc')
             ->get();

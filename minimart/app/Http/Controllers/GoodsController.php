@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Goods;
-use App\Category;
 
 class GoodsController extends Controller
 {
@@ -26,6 +25,7 @@ class GoodsController extends Controller
             )
             ->join('users','goods.introducer','=','users.id')
             ->join('category','goods.category','=','category.category_id')
+            ->whereNull('users.deleted_at')
             ->findOrFail($id);
 
         return view('goods/show', compact('goods'));

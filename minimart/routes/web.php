@@ -24,7 +24,7 @@ Route::get('/setting/password', 'PasswordSettingController@edit');
 Route::put('/setting/password', 'PasswordSettingController@update');
 
 Route::get('/setting/account/confirm_deactivation', 'DeactivationController@index');
-Route::delete('/setting/account/confirm_deactivation', 'DeactivationController@destroy');
+Route::delete('/setting/account/confirm_deactivation', 'DeactivationController@delete');
 
 Route::get('/goods/{id}', 'GoodsController@show');
 Route::post('/like', 'AjaxLikeController@store');
