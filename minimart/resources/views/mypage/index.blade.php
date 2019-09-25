@@ -2,6 +2,7 @@
 @inject('like','App\Like')
 @section('content')
 <div class="container ops-main">
+  @include('common/message')
   <div class="row">
     <div class="col-md-12">
       <h3 class="ops-title">お気に入りグッズ</h3>

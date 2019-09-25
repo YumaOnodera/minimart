@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @elseif (session('flash_message'))
+            <div class="alert alert-success">
+                <ul class="mb-0">
+                    <li>{{ session('flash_message') }}</li>
+                </ul>
+            </div>
+        @elseif (session('password_error'))
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    <li>{{ session('password_error') }}</li>
+                </ul>
+            </div>
+        @endif
+    </div>
+</div>

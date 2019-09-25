@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MypageRequest;
 use App\User;
@@ -16,27 +15,6 @@ class MypageController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        $err_msg = [
-            "goods.category" => "カテゴリーは正しい形式で入力してください。"
-        ];
-
-        return Validator::make($data, [
-            'goods_name'        => 'required|string|max:50',
-            'goods_description' => 'required|string|max:500',
-            'category'          => 'required|integer|max:3',
-            'goods_url'         => 'required|string|max:1000',
-            'goods_img_src'     => 'required|string|max:1000',
-        ], $err_msg);
     }
 
     public function index()
@@ -94,6 +72,9 @@ class MypageController extends Controller
         $goods->goods_img_src = $request->goods_img_src;
         $goods->save();
 
+        // セッションに成功メッセージを渡す
+        session()->flash('flash_message', '商品の登録が完了しました。');
+
         return redirect("/mypage");
     }
 
@@ -136,13 +117,19 @@ class MypageController extends Controller
         $goods->goods_img_src = $request->goods_img_src;
         $goods->save();
 
-        return redirect("/mypage");
+        // セッションに成功メッセージを渡す
+        session()->flash('flash_message', '商品情報の更新が完了しました。');
+
+        return redirect("/mypage/" . $id . "/edit");
     }
 
     public function destroy($id)
     {
         $goods = Goods::findOrFail($id);
         $goods->delete();
+
+        // セッションに成功メッセージを渡す
+        session()->flash('flash_message', '商品の削除が完了しました。');
 
         return redirect("/mypage");
     }

@@ -30,7 +30,7 @@ return [
         'array'   => ':attributeは、:min個から:max個の間で入力してください。',
     ],
     'boolean'              => ':attributeは、trueかfalseを入力してください。',
-    'confirmed'            => ':attributeと、確認フィールドとが、一致していません。',
+    'confirmed'            => ':attributeと確認フィールドが一致していません。',
     'date'                 => ':attributeには有効な日付を入力してください。',
     'date_format'          => ':attributeは:format形式で入力してください。',
     'different'            => ':attributeと:otherには、異なった内容を入力してください。',
@@ -144,9 +144,10 @@ return [
 
     'attributes' => [
         'user_id'           => 'ユーザーID',
-        'user name'         => 'ユーザー名',
+        'user_name'         => 'ユーザー名',
         'email'             => 'メールアドレス',
         'password'          => 'パスワード',
+        'new_password'      => 'パスワード',
         'goods_name'        => '商品名',
         'goods_description' => '商品紹介文',
         'category'          => 'カテゴリー',
