@@ -47,7 +47,7 @@ class GoodsTableSeeder extends Seeder
             \App\Goods::create($item);
         }
 
-        // 外部キー制約を一時的に外す
+        // 外部キー制約を元に戻す
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
