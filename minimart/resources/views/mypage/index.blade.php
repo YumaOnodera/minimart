@@ -37,9 +37,9 @@
               <span class="like-count text-danger ml-2">{{ $item->like_count }}</span>
             </div>
           </td>
-          <td><a class="btn btn-primary text-nowrap" href="/goods/{{ $item->goods_id }}">詳細</a></td>
+          <td><a class="btn btn-primary text-nowrap" href="/mypage/goods/{{ $item->goods_id }}">詳細</a></td>
           <td>
-            <button onclick="location.href='/mypage/{{ $item->goods_id }}/edit'" class="btn btn-xs btn-success px-2 py-1" aria-label="Left Align"><i class="fas fa-edit"></i></button>
+            <button onclick="location.href='/goods/{{ $item->goods_id }}/edit'" class="btn btn-xs btn-success px-2 py-1" aria-label="Left Align"><i class="fas fa-edit"></i></button>
           </td>
           <td>
             <form action="/mypage/{{ $item->goods_id }}" method="post">

@@ -42,6 +42,31 @@ class MypageController extends Controller
         // 取得した値をビュー「mypage/index」に渡す
         return view('mypage/index', compact('goods'));
     }
+
+    public function show($id)
+    {
+        // DBよりURIパラメータと同じIDを持つGoodsの情報を取得
+        $goods = Goods::select(
+            'goods.goods_id',
+            'goods.goods_name',
+            'goods.goods_description',
+            'goods.introducer',
+            'goods.goods_url',
+            'goods.goods_img_src',
+            'goods.like_count',
+            'goods.updated_at',
+            'users.user_name',
+            'users.user_img_src',
+            'category.category_name'
+            )
+            ->join('users','goods.introducer','=','users.id')
+            ->join('category','goods.category','=','category.category_id')
+            ->whereNull('users.deleted_at')
+            ->findOrFail($id);
+
+        // 取得した値をビュー「mypage/show」に渡す
+        return view('mypage/show', compact('goods'));
+    }
     
     public function create()
     {

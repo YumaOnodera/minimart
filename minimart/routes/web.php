@@ -12,9 +12,11 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('home', 'HomeController');
+Route::get('/goods/{id}', 'HomeController@show');
 
 Route::get('/mypage', 'MypageController@index')->name('mypage');
+Route::get('/mypage/goods/{id}', 'MypageController@show');
+Route::get('/goods/{id}/edit', 'MypageController@edit');
 Route::resource('mypage', 'MypageController');
 
 Route::get('/setting/account', 'AccountSettingController@edit');
@@ -26,7 +28,6 @@ Route::put('/setting/password', 'PasswordSettingController@update');
 Route::get('/setting/account/confirm_deactivation', 'DeactivationController@index');
 Route::delete('/setting/account/confirm_deactivation', 'DeactivationController@delete');
 
-Route::get('/goods/{id}', 'GoodsController@show');
 Route::post('/like', 'AjaxLikeController@store');
 
 Auth::routes();

@@ -1,4 +1,5 @@
 @extends('layouts/app')
+@inject('like','App\Like')
 @section('content')
-@include('mypage/form', ['target' => 'update'])
+@include('layouts/form', ['target' => 'update'])
 @endsection
