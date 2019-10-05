@@ -13,7 +13,7 @@
                     <label for="goods_img" class="font-weight-bold">商品イメージ</label>
                     <div class="mb-3 text-center">
                         @if($target == 'update')
-                            <img class="w-100" src="{{ $goods->goods_img_src }}" alt="{{ $goods->goods_name }}">
+                            <img class="goods_img" src="{{ $goods->goods_img_src }}" alt="{{ $goods->goods_name }}">
                         @endif
                     </div>
                     <input type="file" class="form-control @error('goods_img') is-invalid @enderror" name="goods_img">

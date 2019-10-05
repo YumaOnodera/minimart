@@ -6,9 +6,9 @@
     </div>
     <div class="row mb-5 item" data-goodsid="{{ $goods->goods_id }}">
         <div class="col-12 col-sm-5">
-            <div class="goods_img text-center">
+            <div class="text-center">
                 <a href="{{ $goods->goods_url }}">
-                    <img class="w-100" src="{{ $goods->goods_img_src }}" alt="{{ $goods->goods_name }}">
+                    <img class="goods_img" src="{{ $goods->goods_img_src }}" alt="{{ $goods->goods_name }}">
                 </a>
             </div>
         </div>
