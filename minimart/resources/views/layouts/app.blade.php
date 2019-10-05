@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- サイト説明 -->
-    <meta name="description" content="Minimart(ミニマート)は、自分のお気に入りグッズを共有できるサービスです。">
+    <meta name="description" content="Minimart(ミニマート)は、お気に入りを世界中にシェアできるサービスです。">
 
     <!-- Twitterカード設定 -->
     @if (request()->is('goods/*'))
@@ -17,9 +17,14 @@
     <meta property="og:title" content="{{ $goods->goods_name }}" />
     <meta property="og:description" content="{{ $goods->goods_description }}" />
     <meta property="og:image" content="{{ $goods->goods_img_src }}" />
+    @else
+    <meta property="og:url" content="{{ request()->fullUrl() }}" />
+    <meta property="og:title" content="Minimart(ミニマート) | お気に入りを世界中にシェアしよう" />
+    <meta property="og:description" content="Minimart(ミニマート)は、お気に入りを世界中にシェアできるサービスです。" />
+    <meta property="og:image" content="{{ asset('/img/top.jpg') }}" />
     @endif
 
-    <title>{{ config('app.name', 'Minimart') }}</title>
+    <title>@yield('title') {{ config('app.name', 'Minimart') }}</title>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -103,7 +108,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary ml-3" href="/mypage/create">新規作成</a>
+                                <a class="btn btn-primary ml-3" href="/mypage/create">投稿</a>
                             </li>
                         @endguest
                     </ul>

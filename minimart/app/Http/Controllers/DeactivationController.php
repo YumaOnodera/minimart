@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Likes;
 use App\Goods;
@@ -36,20 +37,25 @@ class DeactivationController extends Controller
 
             // 退会するユーザーがいいねしたGoodsの情報を取得
             $liked_goods = Goods::join('likes','goods.goods_id','=', 'likes.liked_goods')
-                ->where('likes.liked_user', $user_id)
-                ->get();
+            ->where('likes.liked_user', $user_id)
+            ->get();
 
-            foreach($liked_goods as $liked_item) {
-                // 退会するユーザーがいいねしたGoodsのいいね数を減らす
-                $liked_item->like_count -= 1;
-                $liked_item->save();
-            }
+            // トランザクション処理
+            DB::transaction(function () use ($liked_goods, $user) {
 
-            // ユーザー情報を論理削除
-            $user->delete();
+                foreach($liked_goods as $liked_item) {
+                    // 退会するユーザーがいいねしたGoodsのいいね数を減らす
+                    $liked_item->like_count -= 1;
+                    $liked_item->save();
+                }
 
-            // セッションに成功メッセージを渡す
-            session()->flash('flash_message', '退会処理が完了しました。');
+                // ユーザー情報を論理削除
+                $user->delete();
+
+                // セッションに成功メッセージを渡す
+                session()->flash('flash_message', '退会処理が完了しました。');
+
+            });
 
             return redirect("/");
 
@@ -57,7 +63,7 @@ class DeactivationController extends Controller
         } else {
 
             // セッションにエラーメッセージを渡す
-            session()->flash('password_error', 'パスワードが一致しません。');
+            session()->flash('error_message', 'パスワードが一致しません。');
 
             return redirect("/setting/account/confirm_deactivation");
         }
@@ -80,23 +86,28 @@ class DeactivationController extends Controller
                 ->where('likes.liked_user', $user_id)
                 ->get();
 
-            foreach($liked_goods as $liked_item) {
-                // 退会するユーザーがいいねしたGoodsのいいね数を減らす
-                $liked_item->like_count -= 1;
-                $liked_item->save();
-            }
-
             // ユーザーのIDに紐付くGoodsの情報を取得
             $goods = Goods::where('goods.introducer', $user_id);
 
-            // ユーザーが投稿した商品情報を削除
-            $goods->forceDelete();
+            // トランザクション処理
+            DB::transaction(function () use ($liked_goods, $goods, $user) {
 
-            // ユーザー情報を削除
-            $user->forceDelete();
+                foreach($liked_goods as $liked_item) {
+                    // 退会するユーザーがいいねしたGoodsのいいね数を減らす
+                    $liked_item->like_count -= 1;
+                    $liked_item->save();
+                }
 
-            // セッションに成功メッセージを渡す
-            session()->flash('flash_message', 'アカウント情報の削除が完了しました。');
+                // ユーザーが投稿した商品情報を削除
+                $goods->forceDelete();
+
+                // ユーザー情報を削除
+                $user->forceDelete();
+
+                // セッションに成功メッセージを渡す
+                session()->flash('flash_message', 'アカウント情報の削除が完了しました。');
+
+            });
 
             return redirect("/");
             
@@ -104,7 +115,7 @@ class DeactivationController extends Controller
         } else {
 
             // セッションにエラーメッセージを渡す
-            session()->flash('password_error', 'パスワードが一致しません。');
+            session()->flash('error_message', 'パスワードが一致しません。');
 
             return redirect("/setting/account/confirm_deactivation");
         }

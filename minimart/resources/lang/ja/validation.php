@@ -152,7 +152,8 @@ return [
         'goods_description' => '商品紹介文',
         'category'          => 'カテゴリー',
         'goods_url'         => '商品サイトURL',
-        'goods_img_src'     => '商品イメージパス'
+        'goods_img_src'     => '商品イメージパス',
+        'goods_img'         => '商品イメージ'
     ],
 
 ];

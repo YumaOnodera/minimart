@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountSettingRequest;
 use App\User;
@@ -41,14 +42,19 @@ class AccountSettingController extends Controller
         // ログインユーザーのIDに紐付くUsersの情報を取得
         $user = User::findOrFail($user_id);
 
-        // アカウント情報を更新
-        $user->user_id = $request->user_id;
-        $user->user_name = $request->user_name;
-        $user->email = $request->email;
-        $user->save();
+        // トランザクション処理
+        DB::transaction(function () use ($user, $request) {
 
-        // セッションに成功メッセージを渡す
-        session()->flash('flash_message', 'アカウント情報の更新が完了しました。');
+            // アカウント情報を更新
+            $user->user_id = $request->user_id;
+            $user->user_name = $request->user_name;
+            $user->email = $request->email;
+            $user->save();
+
+            // セッションに成功メッセージを渡す
+            session()->flash('flash_message', 'アカウント情報の更新が完了しました。');
+
+        });
 
         return redirect("/setting/account");
     }

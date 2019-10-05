@@ -1,5 +1,6 @@
 @extends('layouts/app')
 @inject('like','App\Like')
+@section('title', $user->user_name . '(' . $user->user_id . ')さん　| ')
 @section('content')
 <div class="container ops-main">
   @include('common/message')

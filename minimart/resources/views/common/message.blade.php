@@ -14,10 +14,10 @@
                     <li>{{ session('flash_message') }}</li>
                 </ul>
             </div>
-        @elseif (session('password_error'))
+        @elseif (session('error_message'))
             <div class="alert alert-danger">
                 <ul class="mb-0">
-                    <li>{{ session('password_error') }}</li>
+                    <li>{{ session('error_message') }}</li>
                 </ul>
             </div>
         @endif
