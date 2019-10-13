@@ -30,7 +30,7 @@
                             @if (isset(Auth::user()->avatar_img_src))
                             <img class="card-img-custom avatar-img rounded-circle" src="{{ Auth::user()->avatar_img_src }}" alt="{{ Auth::user()->user_name }}" height="120">
                             @else
-                            <img class="card-img-custom avatar_img rounded-circle" src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ Auth::user()->user_name }}" height="120">
+                            <img class="card-img-custom avatar-img rounded-circle" src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ Auth::user()->user_name }}" height="120">
                             @endif
                             <div class="card-img-overlay rounded-circle">
                                 <div class="card-img-inner">
