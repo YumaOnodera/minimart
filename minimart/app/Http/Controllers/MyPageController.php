@@ -66,7 +66,9 @@ class MypageController extends Controller
             'goods.like_count',
             'goods.updated_at',
             'users.user_name',
-            'users.user_img_src',
+            'users.avatar_img_src',
+            'users.header_img_src',
+            'users.site_url',
             'category.category_name'
             )
             ->join('users','goods.introducer','=','users.id')

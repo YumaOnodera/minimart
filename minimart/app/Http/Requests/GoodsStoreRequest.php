@@ -18,7 +18,7 @@ class GoodsStoreRequest extends FormRequest
             'goods_description' => 'required|string|max:500',
             'category'          => 'required|integer|max:3',
             'goods_url'         => 'required|string|max:1000',
-            'goods_img'         => 'required|file|image|mimes:jpeg,png,jpg,gif|max:1000'
+            'goods_img'         => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

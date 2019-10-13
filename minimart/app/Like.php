@@ -22,4 +22,16 @@ class Like extends Model
         
         return $like;
     }
+
+    public function getTotalLikeCount($user_id)
+    {
+        // Goodsテーブルの値を取得
+        $totalLikeCount = $this::select(
+            'likes.id'
+        )
+        ->where('likes.liked_user', $user_id)
+        ->count();
+        
+        return $totalLikeCount;
+    }
 }

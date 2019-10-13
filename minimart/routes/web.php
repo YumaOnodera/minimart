@@ -19,6 +19,8 @@ Route::get('/mypage/goods/{id}', 'MypageController@show');
 Route::get('/goods/{id}/edit', 'MypageController@edit');
 Route::resource('mypage', 'MypageController');
 
+Route::put('/user/{id}', 'UserController@update');
+
 Route::get('/setting/account', 'AccountSettingController@edit');
 Route::put('/setting/account', 'AccountSettingController@update');
 
@@ -28,6 +30,6 @@ Route::put('/setting/password', 'PasswordSettingController@update');
 Route::get('/setting/account/confirm_deactivation', 'DeactivationController@index');
 Route::delete('/setting/account/confirm_deactivation', 'DeactivationController@delete');
 
-Route::post('/like', 'AjaxLikeController@store');
+Route::post('/like', 'AjaxLikeController@update');
 
 Auth::routes();

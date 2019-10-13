@@ -31,7 +31,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/like.js') }}"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -39,7 +39,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -80,11 +80,11 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    @if (isset(Auth::user()->user_img_src))
-                                    <img src="{{ Auth::user()->user_img_src }}" alt="{{ Auth::user()->user_name }}" height="24"> <span class="caret"></span>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle p-1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if (isset(Auth::user()->avatar_img_src))
+                                    <img class="rounded-circle" src="{{ Auth::user()->avatar_img_src }}" alt="{{ Auth::user()->user_name }}" height="32">
                                     @else
-                                    <img class="circle" src="http://drive.google.com/uc?export=view&id=10eWgwGJDpiRqxi4NnQ3aWgLs9k52yA_g" alt="{{ Auth::user()->user_name }}"　height="24"> <span class="caret"></span>
+                                    <img class="rounded-circle" src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ Auth::user()->user_name }}" height="32">
                                     @endif
                                 </a>
 
@@ -108,7 +108,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary ml-3" href="/mypage/create">投稿</a>
+                                <a class="btn btn-primary rounded-pill px-3 ml-3" href="/mypage/create"><i class="fas fa-pen mr-2"></i><span>投稿</span></a>
                             </li>
                         @endguest
                     </ul>
@@ -116,6 +116,8 @@
             </div>
         </nav>
 
+        @yield('header')
+        
         <main class="py-4">
             @yield('content')
         </main>

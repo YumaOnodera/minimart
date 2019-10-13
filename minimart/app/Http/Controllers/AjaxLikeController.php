@@ -11,7 +11,7 @@ use App\Like;
 class AjaxLikeController extends Controller
 {
 
-    public function store(Request $request) {
+    public function update(Request $request) {
         
         // ログインユーザーのIDを取得
         $user_id = Auth::id();

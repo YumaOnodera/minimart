@@ -10,7 +10,7 @@ $(function(){
         var $this = $(this);
 
         // クリックした要素のいいね数を取得
-        var $like_count = parseInt($this.children('.like-count').text(), 10);
+        var like_count = parseInt($this.children('.like-count').text(), 10);
 
         $.ajax({
             type: 'POST',
@@ -30,7 +30,7 @@ $(function(){
                 $this.children('.like-mark').attr('data-prefix', 'far');
 
                 // いいね数を減算
-                $this.children('.like-count').text($like_count - 1)
+                $this.children('.like-count').text(like_count - 1)
             }
             // まだいいねされていない場合
             else {
@@ -38,7 +38,7 @@ $(function(){
                 $this.children('.like-mark').attr('data-prefix', 'fas');
 
                 // いいね数を加算
-                $this.children('.like-count').text($like_count + 1);
+                $this.children('.like-count').text(like_count + 1);
             }
         }).fail(function(msg) {
             console.log('Ajax Error');
