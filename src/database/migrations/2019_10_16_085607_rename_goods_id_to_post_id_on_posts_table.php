@@ -13,11 +13,13 @@ class RenameGoodsIdToPostIdOnPostsTable extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints(); //外部キー制約を一時的に無効化
+        Schema::table('likes', function (Blueprint $table) {
+            $table->dropForeign(['liked_goods']);
+        });
+
         Schema::table('posts', function (Blueprint $table) {
             $table->renameColumn('goods_id', 'post_id');
         });
-        Schema::enableForeignKeyConstraints(); //外部キー制約を有効化
     }
 
     /**
@@ -27,10 +29,15 @@ class RenameGoodsIdToPostIdOnPostsTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints(); //外部キー制約を一時的に無効化
         Schema::table('posts', function (Blueprint $table) {
             $table->renameColumn('post_id', 'goods_id');
         });
-        Schema::enableForeignKeyConstraints(); //外部キー制約を有効化
+
+        Schema::table('likes', function (Blueprint $table) {
+            $table->foreign('liked_goods')
+                  ->references('goods_id')
+                  ->on('goods')
+                  ->onDelete('cascade');
+        });
     }
 }
