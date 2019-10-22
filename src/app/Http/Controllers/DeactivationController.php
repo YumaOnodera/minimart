@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Likes;
-use App\Goods;
+use App\Post;
 use App\User;
 
 class DeactivationController extends Controller
@@ -26,27 +26,24 @@ class DeactivationController extends Controller
     // 論理削除
     public function delete(Request $request)
     {
-        // ログインユーザーのIDを取得
         $user_id = Auth::id();
-
-        // ログインユーザーのIDに紐付くUsersの情報を取得
         $user = User::findOrFail($user_id);
 
         // パスワードが一致した場合
         if (Hash::check($request->password, $user->password)) {
 
-            // 退会するユーザーがいいねしたGoodsの情報を取得
-            $liked_goods = Goods::join('likes','goods.goods_id','=', 'likes.liked_goods')
+            // 退会するユーザーがいいねしたPostの情報を取得
+            $liked_posts = Post::join('likes','goods.goods_id','=', 'likes.liked_post')
             ->where('likes.liked_user', $user_id)
             ->get();
 
             // トランザクション処理
-            DB::transaction(function () use ($liked_goods, $user) {
+            DB::transaction(function () use ($liked_posts, $user) {
 
-                foreach($liked_goods as $liked_item) {
-                    // 退会するユーザーがいいねしたGoodsのいいね数を減らす
-                    $liked_item->like_count -= 1;
-                    $liked_item->save();
+                foreach($liked_posts as $liked_post) {
+                    // 退会するユーザーがいいねしたPostのいいね数を減らす
+                    $liked_post->like_count -= 1;
+                    $liked_post->save();
                 }
 
                 // ユーザー情報を論理削除
@@ -72,30 +69,27 @@ class DeactivationController extends Controller
     // 物理削除（通常は不使用）
     public function destroy(Request $request)
     {
-        // ログインユーザーのIDを取得
         $user_id = Auth::id();
-
-        // ログインユーザーのIDに紐付くUsersの情報を取得
         $user = User::findOrFail($user_id);
 
         // パスワードが一致した場合
         if (Hash::check($request->password, $user->password)) {
 
-            // 退会するユーザーがいいねしたGoodsの情報を取得
-            $liked_goods = Goods::join('likes','goods.goods_id','=', 'likes.liked_goods')
+            // 退会するユーザーがいいねしたPostの情報を取得
+            $liked_posts = Post::join('likes','goods.goods_id','=', 'likes.liked_post')
                 ->where('likes.liked_user', $user_id)
                 ->get();
 
-            // ユーザーのIDに紐付くGoodsの情報を取得
-            $goods = Goods::where('goods.introducer', $user_id);
+            // ユーザーのIDに紐付くPostの情報を取得
+            $goods = Post::where('goods.introducer', $user_id);
 
             // トランザクション処理
-            DB::transaction(function () use ($liked_goods, $goods, $user) {
+            DB::transaction(function () use ($liked_posts, $goods, $user) {
 
-                foreach($liked_goods as $liked_item) {
-                    // 退会するユーザーがいいねしたGoodsのいいね数を減らす
-                    $liked_item->like_count -= 1;
-                    $liked_item->save();
+                foreach($liked_posts as $liked_post) {
+                    // 退会するユーザーがいいねしたPostのいいね数を減らす
+                    $liked_post->like_count -= 1;
+                    $liked_post->save();
                 }
 
                 // ユーザーが投稿した商品情報を削除

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class GoodsTableSeeder extends Seeder
+class PostsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +15,10 @@ class GoodsTableSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // テーブルのクリア
-        DB::table('goods')->truncate();
+        DB::table('posts')->truncate();
 
         // 初期データ用意（列名をキーとする連想配列）
-        $goods = [
+        $posts = [
             ['goods_name' => '速習 Laravel 6 速習シリーズ',
             'goods_description' => '本書は、PHPフレームワークであるLaravelについて短時間で概要を掴みたい方のための書籍です。9個のPartに分けて、Laravelの基本からテンプレート開発、データベース連携、リクエスト／レスポンス処理、ルーティング設定までを、サンプルコードと共に詳しく解説しています。',
             'category' => '1',
@@ -43,8 +43,8 @@ class GoodsTableSeeder extends Seeder
         ];
         
         // 登録
-        foreach($goods as $item) {
-            \App\Goods::create($item);
+        foreach($posts as $post) {
+            \App\Post::create($post);
         }
 
         // 外部キー制約を元に戻す

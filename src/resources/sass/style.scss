@@ -29,23 +29,23 @@ input[type="file"] {
         display: none;
     }
     .card {
-        &:hover {
-            .translucent {
-                opacity: 0.4;
-            }
-        }
         .translucent {
             opacity: 0.6;
         }
-        .card-img-overlay {
+        .img-edit-overlay {
             display: none;
-            .card-img-inner {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                -webkit-transform: translate(-50%, -50%);
-            }
+        }
+        .card-img-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+        }
+    }
+    .img-edit-card:hover {
+        .translucent {
+            opacity: 0.4;
         }
     }
     .btn-profile-setting {

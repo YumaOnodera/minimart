@@ -4,7 +4,7 @@ $(function(){
         e.stopPropagation();
 
         // 商品IDを取得
-        var liked_goods_id = $(this).parents('.item').data('goodsid');
+        var liked_post_id = $(this).parents('.item').data('postid');
         
         // クリックした要素の状態を格納
         var $this = $(this);
@@ -16,7 +16,7 @@ $(function(){
             type: 'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url: '/like',
-            data: { goods_id: liked_goods_id }
+            data: { post_id: liked_post_id }
         }).done(function(data){
             console.log('Ajax Success');
 

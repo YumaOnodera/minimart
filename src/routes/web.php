@@ -11,13 +11,10 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/goods/{id}', 'HomeController@show');
+Auth::routes();
 
-Route::get('/mypage', 'MypageController@index')->name('mypage');
-Route::get('/mypage/goods/{id}', 'MypageController@show');
-Route::get('/goods/{id}/edit', 'MypageController@edit');
-Route::resource('mypage', 'MypageController');
+Route::get('/{id?}', 'PostController@index');
+Route::resource('post', 'PostController');
 
 Route::put('/user/{id}', 'UserController@update');
 
@@ -31,5 +28,3 @@ Route::get('/setting/account/confirm_deactivation', 'DeactivationController@inde
 Route::delete('/setting/account/confirm_deactivation', 'DeactivationController@delete');
 
 Route::post('/like', 'AjaxLikeController@update');
-
-Auth::routes();

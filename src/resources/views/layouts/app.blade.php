@@ -14,9 +14,9 @@
     @if (request()->is('goods/*'))
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:url" content="{{ request()->fullUrl() }}" />
-    <meta property="og:title" content="{{ $goods->goods_name }}" />
-    <meta property="og:description" content="{{ $goods->goods_description }}" />
-    <meta property="og:image" content="{{ $goods->goods_img_src }}" />
+    <meta property="og:title" content="{{ $post->goods_name }}" />
+    <meta property="og:description" content="{{ $post->goods_description }}" />
+    <meta property="og:image" content="{{ $post->goods_img_src }}" />
     @else
     <meta property="og:url" content="{{ request()->fullUrl() }}" />
     <meta property="og:title" content="Minimart(ミニマート) | お気に入りを世界中にシェアしよう" />
@@ -57,7 +57,7 @@
                             <a class="nav-link" href="{{ url('/') }}">ホーム</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/mypage') }}">マイページ</a>
+                            <a class="nav-link" href="/{{ Auth::user()->user_id }}">マイページ</a>
                         </li>
                         @endauth
                     </ul>
@@ -108,7 +108,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-3 ml-3" href="/mypage/create"><i class="fas fa-pen mr-2"></i><span>投稿</span></a>
+                                <a class="btn btn-primary rounded-pill px-3 ml-3" href="/post/create"><i class="fas fa-pen mr-2"></i><span>投稿</span></a>
                             </li>
                         @endguest
                     </ul>

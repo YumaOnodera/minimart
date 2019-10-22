@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GoodsUpdateRequest extends FormRequest
+class PostStoreRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,7 +18,7 @@ class GoodsUpdateRequest extends FormRequest
             'goods_description' => 'required|string|max:500',
             'category'          => 'required|integer|max:3',
             'goods_url'         => 'required|string|max:1000',
-            'goods_img'         => 'file|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'goods_img'         => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

@@ -10,13 +10,12 @@ class Like extends Model
 
     protected $primaryKey = 'id';
 
-    public function getLikedUser($goods_id, $user_id)
+    public function getLikedUser($post_id, $user_id)
     {
-        // Goodsテーブルの値を取得
         $like = $this::select(
             'likes.liked_user'
         )
-        ->where('likes.liked_goods', $goods_id)
+        ->where('likes.liked_post', $post_id)
         ->where('likes.liked_user', $user_id)
         ->first();
         
@@ -25,7 +24,6 @@ class Like extends Model
 
     public function getTotalLikeCount($user_id)
     {
-        // Goodsテーブルの値を取得
         $totalLikeCount = $this::select(
             'likes.id'
         )

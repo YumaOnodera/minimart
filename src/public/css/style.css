@@ -27,24 +27,24 @@ input[type="file"]:focus {
   display: none;
 }
 
-.header-profile .card:hover .translucent {
-  opacity: 0.4;
-}
-
 .header-profile .card .translucent {
   opacity: 0.6;
 }
 
-.header-profile .card .card-img-overlay {
+.header-profile .card .img-edit-overlay {
   display: none;
 }
 
-.header-profile .card .card-img-overlay .card-img-inner {
+.header-profile .card .card-img-inner {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
+}
+
+.header-profile .img-edit-card:hover .translucent {
+  opacity: 0.4;
 }
 
 .header-profile .btn-profile-setting {
