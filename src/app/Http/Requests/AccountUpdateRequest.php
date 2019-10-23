@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
-class AccountSettingRequest extends FormRequest
+class AccountUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

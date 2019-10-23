@@ -1,24 +1,24 @@
 @extends('layouts.app')
-@section('title', 'パスワード設定 | ')
+@section('title', 'アカウント設定 | ')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             @include('common/message')
             <div class="card">
-                <div class="card-header">{{ __('パスワード変更') }}</div>
+                <div class="card-header">{{ __('アカウント設定') }}</div>
                 <div class="card-body">
-                    <form action="/setting/password" method="post">
+                    <form action="/settings/account" method="post">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('現在のパスワード') }}</label>
+                            <label for="user_id" class="col-md-4 col-form-label text-md-right">{{ __('ユーザーID') }}</label>
                             
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autofocus>
+                                <input id="user_id" type="text" class="form-control @error('user_id') is-invalid @enderror" name="user_id" value="{{ $user->user_id }}" required autocomplete="user_id" autofocus>
                                 
-                                @error('password')
+                                @error('user_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -27,12 +27,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="new_password" class="col-md-4 col-form-label text-md-right">{{ __('新しいパスワード') }}</label>
+                            <label for="user_name" class="col-md-4 col-form-label text-md-right">{{ __('ユーザー名') }}</label>
                             
                             <div class="col-md-6">
-                                <input id="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password" required>
-                                
-                                @error('new_password')
+                                <input id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" name="user_name" value="{{ $user->user_name }}" required autocomplete="user_name" autofocus>
+
+                                @error('user_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -41,12 +41,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="new_password_confirmation" class="col-md-4 col-form-label text-md-right">{{ __('新しいパスワードを再入力') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('メールアドレス') }}</label>
                             
                             <div class="col-md-6">
-                                <input id="new_password_confirmation" type="password" class="form-control" name="new_password_confirmation" required>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
                                 
-                                @error('new_password_confirmation')
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -66,7 +66,15 @@
 
                         <div class="row">
                             <div class="col-md-6 offset-md-4">
-                                <a href="/setting/account">アカウント設定</a>
+                                <a href="/settings/password">パスワード変更</a>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="/settings/account/confirm_deactivation">アカウントを削除する</a>
                             </div>
                         </div>
                     </form>

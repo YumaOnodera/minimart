@@ -16,15 +16,16 @@ Auth::routes();
 Route::get('/{id?}', 'PostController@index');
 Route::resource('post', 'PostController');
 
-Route::put('/user/{id}', 'UserController@update');
+Route::group(['middleware' => 'auth'], function(){
 
-Route::get('/setting/account', 'AccountSettingController@edit');
-Route::put('/setting/account', 'AccountSettingController@update');
+    Route::put('/user/edit', 'UserController@profileUpdate');
+    Route::get('/settings/account', 'UserController@accountEdit');
+    Route::put('/settings/account', 'UserController@accountUpdate');
+    Route::view('/settings/password', '/settings/password/edit');
+    Route::put('/settings/password', 'UserController@passwordUpdate');
+    Route::view('/settings/account/confirm_deactivation', '/settings/account/confirm_deactivation/index');
+    Route::delete('/settings/account/confirm_deactivation', 'UserController@delete');
 
-Route::get('/setting/password', 'PasswordSettingController@edit');
-Route::put('/setting/password', 'PasswordSettingController@update');
-
-Route::get('/setting/account/confirm_deactivation', 'DeactivationController@index');
-Route::delete('/setting/account/confirm_deactivation', 'DeactivationController@delete');
+});
 
 Route::post('/like', 'AjaxLikeController@update');

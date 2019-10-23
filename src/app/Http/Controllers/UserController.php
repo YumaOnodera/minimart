@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\ProfileSettingRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\AccountUpdateRequest;
+use App\Http\Requests\PasswordUpdateRequest;
 use App\User;
+use App\Post;
 
 class UserController extends Controller
 {
-    public function update(ProfileSettingRequest $request, $id)
-    {
 
-        // DBよりURIパラメータと同じIDを持つUsersの情報を取得
+    public function profileUpdate(ProfileUpdateRequest $request)
+    {
+        $id = Auth::id();
         $user = User::findOrFail($id);
+        $user_id = $user->user_id;
 
         // アバター画像名を生成
         $avatar_img_name = 'user' . $id . '.jpg';
@@ -58,6 +64,96 @@ class UserController extends Controller
             $user->save();
         });
 
-        return redirect("mypage");
+        return redirect("/" . $user_id);
+    }
+
+    public function accountEdit()
+    {
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+
+        return view('/settings/account/edit', compact('user'));
+    }
+
+    public function accountUpdate(AccountUpdateRequest $request)
+    {
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+
+        // トランザクション処理
+        DB::transaction(function () use ($user, $request) {
+
+            // アカウント情報を更新
+            $user->user_id = $request->user_id;
+            $user->user_name = $request->user_name;
+            $user->email = $request->email;
+            $user->save();
+
+            // セッションに成功メッセージを渡す
+            session()->flash('flash_message', 'アカウント情報の更新が完了しました。');
+        });
+
+        return redirect("/settings/account");
+    }
+
+    public function passwordUpdate(PasswordUpdateRequest $request)
+    {
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+
+        // トランザクション処理
+        DB::transaction(function () use ($user, $request) {
+
+            // パスワードを更新
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            // セッションに成功メッセージを渡す
+            session()->flash('flash_message', 'パスワードの更新が完了しました。');
+        });
+
+        return redirect("/settings/password");
+    }
+
+    public function delete(Request $request)
+    {
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+
+        // パスワードが一致した場合
+        if (Hash::check($request->password, $user->password)) {
+
+            // 退会するユーザーがいいねしたPostの情報を取得
+            $liked_posts = Post::join('likes','posts.post_id','=', 'likes.liked_post')
+            ->where('likes.liked_user', $user_id)
+            ->get();
+
+            // トランザクション処理
+            DB::transaction(function () use ($liked_posts, $user) {
+
+                foreach($liked_posts as $liked_post) {
+
+                    // 退会するユーザーがいいねしたPostのいいね数を減らす
+                    $liked_post->like_count -= 1;
+                    $liked_post->save();
+                }
+
+                // ユーザー情報を論理削除
+                $user->delete();
+
+                // セッションに成功メッセージを渡す
+                session()->flash('flash_message', '退会処理が完了しました。');
+            });
+
+            return redirect("/");
+
+        // パスワードが一致しなかった場合
+        } else {
+
+            // セッションにエラーメッセージを渡す
+            session()->flash('error_message', 'パスワードが一致しません。');
+
+            return redirect("/settings/account/confirm_deactivation");
+        }
     }
 }

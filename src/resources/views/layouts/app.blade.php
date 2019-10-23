@@ -89,11 +89,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right m-0 p-0" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item py-2 bg-light" href="{{ url('/mypage') }}">
+                                    <a class="dropdown-item py-2 bg-light" href="/{{ Auth::user()->user_id }}">
                                         {{ Auth::user()->user_name }}
                                     </a>
                                     <hr class="m-0">
-                                    <a class="dropdown-item py-2" href="{{ url('/setting/account') }}">
+                                    <a class="dropdown-item py-2" href="{{ url('/settings/account') }}">
                                         {{ __('アカウント設定') }}
                                     </a>
                                     <a class="dropdown-item py-2" href="{{ route('logout') }}"

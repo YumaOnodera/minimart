@@ -14,7 +14,7 @@
                             <h4>{{ __('その他のヒント') }}</h4>
                             <ul>
                                 <li>アカウントを間違って削除した場合でも、アカウント削除から30日以内であればアカウントを復活させることができます。</li>
-                                <li>アカウントを削除しなくてもユーザー名を変更できます。<a href="/setting/account">設定</a>で編集できます。</li>
+                                <li>アカウントを削除しなくてもユーザー名を変更できます。<a href="/settings/account">設定</a>で編集できます。</li>
                             </ul>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
 <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="password-modal-label">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="/setting/account/confirm_deactivation" name="delete" method="post">
+            <form action="/settings/account/confirm_deactivation" name="delete" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="modal-header">
