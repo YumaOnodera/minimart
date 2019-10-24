@@ -5,16 +5,16 @@
 @include('common/message')
 @if(!empty($user->user_id))
 <header class="header-profile">
-	<form action="/user/{{ $user->id }}" method="post" enctype="multipart/form-data">
+	<form action="/user/edit" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="_method" value="PUT">
 		{{ csrf_field() }}
-		<div class="card img-edit-card bg-dark text-white mb-0">
+		<div class="card bg-dark text-white border-0 mb-0">
 			@if (isset($user->header_img_src))
 			<img class="card-img-custom header-img" src="{{ $user->header_img_src }}" alt="ヘッダー画像" height="360">
 			@else
 			<img class="card-img-custom header-img" src="{{ asset('/img/default-header.jpeg') }}" alt="ヘッダー画像" height="360">
 			@endif
-			<div class="card-img-overlay img-edit-overlay">
+			<div class="card-img-overlay">
 				<div class="card-img-inner text-center">
 					<i class="fas fa-camera h4 mb-1"></i>
 					<p class="card-text">ヘッダー画像を変更</p>
@@ -26,13 +26,13 @@
 			<div class="col-xl-7 mx-auto">
 				<div class="row py-4">
 					<div class="pr-4">
-						<div class="card img-edit-card bg-dark text-white rounded-circle mb-0">
+						<div class="card bg-dark text-white rounded-circle border-0 mb-0">
 							@if (isset($user->avatar_img_src))
 							<img class="card-img-custom avatar-img rounded-circle" src="{{ $user->avatar_img_src }}" alt="{{ $user->user_name }}" height="120">
 							@else
 							<img class="card-img-custom avatar-img rounded-circle" src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ $user->user_name }}" height="120">
 							@endif
-							<div class="card-img-overlay img-edit-overlay rounded-circle">
+							<div class="card-img-overlay rounded-circle">
 								<div class="card-img-inner">
 									<i class="fas fa-camera h4 mb-0"></i>
 								</div>
@@ -143,27 +143,21 @@
 	</form>
 </header>
 @else
-<header class="header-profile">
-	<div class="card bg-dark text-white mb-0">
+<header class="header-top">
+	<div class="card bg-dark text-white border-0 mb-0">
 		<img class="card-img header-img translucent" src="{{ asset('/img/top.jpg') }}" alt="ヘッダー画像" height="570">
 		<div class="card-img-overlay">
-		<div class="card-img-inner text-center">
-			<h1 class="card-title text-white display-4">Minimart</h1>
-			<h5 class="card-text">あなたのお気に入りを世界中にシェアしよう</h5>
+			<div class="card-img-inner text-center">
+				<h1 class="card-title text-white display-4">Minimart</h1>
+				<h5 class="card-text">あなたのお気に入りを世界中にシェアしよう</h5>
+			</div>
 		</div>
-		</div>
-		<input class="input-img input-header-img" type="file" name="header_img">
 	</div>
 </header>
 @endif
 @endsection
 @section('content')
 <div class="container ops-main">
-	<div class="row">
-		<div class="col-md-12">
-		<h3 class="ops-title">みんなのおすすめグッズ</h3>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-md-11 col-md-offset-1">
 		<table class="table text-center">

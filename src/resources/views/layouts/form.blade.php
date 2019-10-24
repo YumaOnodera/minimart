@@ -1,22 +1,30 @@
 <div class="container ops-main w-75">
     @include('common/message')
     @if($target == 'store')
-    <form action="/post" method="post" enctype="multipart/form-data">
+    <form class="post-form" action="/post" method="post" enctype="multipart/form-data">
     @elseif($target == 'update')
-    <form action="/post/{{ $post->post_id }}" method="post" enctype="multipart/form-data">
+    <form class="post-form" action="/post/{{ $post->post_id }}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PUT">
     @endif
         {{ csrf_field() }}
         <div class="row">
             <div class="col-12 col-sm-5">
                 <div class="form-group">
-                    <label for="goods_img" class="font-weight-bold">商品イメージ</label>
-                    <div class="mb-3 text-center">
-                        @if($target == 'update')
-                            <img class="goods_img" src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
+                    <label for="goods-img" class="font-weight-bold">商品イメージ</label>
+                    <div class="card bg-dark text-white border-0">
+                        @if($target == 'store')
+                            <img class="goods-img translucent" src="{{ asset('/img/preview.png') }}" alt="商品画像プレビュー">
+                        @elseif($target == 'update')
+                            <img class="goods-img translucent" src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
                         @endif
+                        <div class="card-img-overlay p-1">
+                            <div class="card-img-inner text-center">
+                                <i class="fas fa-camera h4 mb-1"></i>
+                                <p class="card-text">商品画像を登録</p>
+                            </div>
+                        </div>
+                        <input type="file" class="input-img input-goods-img form-control @error('goods_img') is-invalid @enderror" name="goods_img">
                     </div>
-                    <input type="file" class="form-control @error('goods_img') is-invalid @enderror" name="goods_img">
                     @error('goods_img')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

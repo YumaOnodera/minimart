@@ -1,14 +1,6 @@
 @import 'variables';
 
-.goods_img {
-    max-height: 400px;
-    max-width: 400px;
-}
-
-.footer-show {
-    box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-}
-
+// 共通
 input[type="file"] {
     background-color: transparent;
     border: none;
@@ -16,37 +8,52 @@ input[type="file"] {
         box-shadow: none;
     }
 }
+.goods-img {
+    max-height: 400px;
+    max-width: 400px;
+}
+.card {
+    .translucent {
+        opacity: 0.6;
+    }
+    .card-img-inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+    .input-img {
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        position: absolute;
+    }
+}
 
+// ナビゲーション
 .dropdown-toggle::after {
     display: none;
 }
 
+// 一覧画面
 .header-profile {
+    .card {
+        &:hover {
+            .translucent {
+                opacity: 0.4;
+            }
+        }
+        .card-img-overlay,
+        .input-img {
+            display: none;
+        }
+    }
     .input-user-name,
     .input-introduction,
     .row-site-url,
     .row-profile-edit {
         display: none;
-    }
-    .card {
-        .translucent {
-            opacity: 0.6;
-        }
-        .img-edit-overlay {
-            display: none;
-        }
-        .card-img-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -webkit-transform: translate(-50%, -50%);
-        }
-    }
-    .img-edit-card:hover {
-        .translucent {
-            opacity: 0.4;
-        }
     }
     .btn-profile-setting {
         height: 34px;
@@ -54,11 +61,26 @@ input[type="file"] {
     .btn-save {
         height: 35px;
     }
-    .input-img {
-        display: none;
-        height: 100%;
-        width: 100%;
-        opacity: 0;
-        position: absolute;
+}
+
+// 詳細画面
+.footer-show {
+    box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+// 投稿・編集画面
+.post-form {
+    .card {
+        width: max-content;
+    }
+    .card {
+        &:hover {
+            .translucent {
+                opacity: 0.6;
+            }
+        }
+        .translucent {
+            opacity: 0.9;
+        }
     }
 }

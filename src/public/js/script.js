@@ -33,6 +33,16 @@ $(function () {
         // プレビュー画像表示
         imagePreview(e, image);
     });
+
+    // 商品画像を選択した場合
+    $('.input-goods-img').change(function(e){
+
+        // ヘッダー画像を取得
+        var image = $('.goods-img');
+
+        // プレビュー画像表示
+        imagePreview(e, image);
+    });
 });
 
 // プロフィール表示切り替え
@@ -49,13 +59,6 @@ function profileDispSwitch() {
     $('.card-img-overlay').toggle();
     $('.input-img').toggle();
     $('.card-img-custom').toggleClass('translucent');
-}
-
-// 入力された情報を表示に反映
-function profileDispReflect(user_name, introduction) {
-    $('.user-name').text(user_name);
-    $('.introduction').text(introduction);
-    $('.site-url').text(introduction);
 }
 
 // プレビュー画像表示

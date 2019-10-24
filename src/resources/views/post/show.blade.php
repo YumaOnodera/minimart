@@ -12,15 +12,15 @@
         <div class="col-12 col-sm-5">
             <div class="text-center">
                 <a href="{{ $post->goods_url }}">
-                    <img class="goods_img" src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
+                    <img class="goods-img" src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
                 </a>
             </div>
         </div>
         <div class="col-12 col-sm-7">
-            <div class="goods_name">
+            <div class="goods-name">
                 <h3>{{ $post->goods_name }}</h3>
             </div>
-            <div class="like_count mb-2">
+            <div class="like-count mb-2">
                 <div class="btn-like">
                     @if(Auth::check() && $like->getLikedUser($post->post_id, Auth::id()))
                     <i class="like-mark fas fa-heart text-danger"></i>
@@ -44,7 +44,7 @@
                     <span class="text-dark small">{{ $post->updated_at->format('Y/m/d H:i') }}</span>
                 </div>
             </div>
-            <div class="goods_description">
+            <div class="goods-description">
                 {{ $post->goods_description }}
             </div>
         </div>
@@ -58,7 +58,7 @@
     <div class="container w-50">
         <div class="row">
             <div class="row mr-auto align-items-center item" data-postid="{{ $post->post_id }}">
-                <div class="like_count">
+                <div class="like-count">
                     <div class="btn-like d-flex align-items-center">
                         @if(Auth::check() && $like->getLikedUser($post->post_id, Auth::id()))
                         <i class="like-mark fas fa-heart text-danger h4"></i>
