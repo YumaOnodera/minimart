@@ -18,6 +18,9 @@ Route::resource('post', 'PostController');
 
 Route::group(['middleware' => 'auth'], function(){
 
+    Route::get('/post/create', 'PostController@create');
+    Route::get('/post/{post}/edit', 'PostController@edit');
+
     Route::put('/user/edit', 'UserController@profileUpdate');
     Route::get('/settings/account', 'UserController@accountEdit');
     Route::put('/settings/account', 'UserController@accountUpdate');

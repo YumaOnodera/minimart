@@ -23,6 +23,8 @@ class UsersTableSeeder extends Seeder
             ['user_id' => 'laravel_taro',
             'user_name' => 'ララベル太郎',
             'introduction' => 'ララベル太郎です。本が好きです！',
+            'avatar_img_src' => 'avatar_img/avatar1.png',
+            'header_img_src' => 'header_img/header1.png',
             'email' => 'yuma.onodera0913@gmail.com',
             'password' => bcrypt('password')
             ],

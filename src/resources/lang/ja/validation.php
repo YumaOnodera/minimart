@@ -149,7 +149,7 @@ return [
         'password'          => 'パスワード',
         'new_password'      => 'パスワード',
         'goods_name'        => '商品名',
-        'goods_description' => '商品紹介文',
+        'goods_description' => '商品説明',
         'category'          => 'カテゴリー',
         'goods_url'         => '商品サイトURL',
         'goods_img_src'     => '商品イメージパス',

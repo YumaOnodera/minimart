@@ -12,7 +12,7 @@
         <div class="col-12 col-sm-5">
             <div class="text-center">
                 <a href="{{ $post->goods_url }}">
-                    <img class="goods-img" src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
+                    <img class="goods-img" src="/storage/{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
                 </a>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="introducer d-flex align-items-center mb-5">
                 <div class="mr-2">
                     @if (isset($user->avatar_img_src))
-                    <a href="#"><img src="{{ $post->avatar_img_src }}" alt="{{ $post->user_name }}" height="32"></a>
+                    <a href="#"><img src="/storage/{{ $post->avatar_img_src }}" alt="{{ $post->user_name }}" height="32"></a>
                     @else
                     <a href="#"><img src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ $post->user_name }}" height="32"></a>
                     @endif

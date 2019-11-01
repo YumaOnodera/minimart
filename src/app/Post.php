@@ -10,6 +10,16 @@ class Post extends Model
 
     protected $primaryKey = 'post_id';
 
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'introducer');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category', 'category_id');
+    }
+
     public function getTotalPostCount($user_id)
     {
         $totalPostCount = $this::select(

@@ -10,7 +10,7 @@
 		{{ csrf_field() }}
 		<div class="card bg-dark text-white border-0 mb-0">
 			@if (isset($user->header_img_src))
-			<img class="card-img-custom header-img" src="{{ $user->header_img_src }}" alt="ヘッダー画像" height="360">
+			<img class="card-img-custom header-img" src="/storage/{{ $user->header_img_src }}" alt="ヘッダー画像" height="360">
 			@else
 			<img class="card-img-custom header-img" src="{{ asset('/img/default-header.jpeg') }}" alt="ヘッダー画像" height="360">
 			@endif
@@ -28,7 +28,7 @@
 					<div class="pr-4">
 						<div class="card bg-dark text-white rounded-circle border-0 mb-0">
 							@if (isset($user->avatar_img_src))
-							<img class="card-img-custom avatar-img rounded-circle" src="{{ $user->avatar_img_src }}" alt="{{ $user->user_name }}" height="120">
+							<img class="card-img-custom avatar-img rounded-circle" src="/storage/{{ $user->avatar_img_src }}" alt="{{ $user->user_name }}" height="120">
 							@else
 							<img class="card-img-custom avatar-img rounded-circle" src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ $user->user_name }}" height="120">
 							@endif
@@ -172,7 +172,7 @@
 			</tr>
 			@foreach($posts as $post)
 			<tr class="item" data-postid="{{ $post->post_id }}">
-			<td><a href="{{ $post->goods_url }}"><img src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}" height="200"></a></td>
+			<td><a href="{{ $post->goods_url }}"><img src="/storage/{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}" height="200"></a></td>
 			<td>{{ $post->goods_name }}</td>
 			<td>{{ $post->goods_description }}</td>
 			<td>{{ $post->category_name }}</td>

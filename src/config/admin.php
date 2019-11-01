@@ -395,6 +395,8 @@ return [
     |
     */
     'extensions' => [
-
+        'media-manager' => [
+            'disk' => 'public'
+        ],
     ],
 ];

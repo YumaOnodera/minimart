@@ -22,10 +22,10 @@ class UserController extends Controller
         $user_id = $user->user_id;
 
         // アバター画像名を生成
-        $avatar_img_name = 'user' . $id . '.jpg';
+        $avatar_img_name = 'avatar' . $id . '.png';
 
         // ヘッダー画像名を生成
-        $header_img_name = 'header' . $id . '.jpg';
+        $header_img_name = 'header' . $id . '.png';
 
         // トランザクション処理
         DB::transaction(function () use ($user, $request, $avatar_img_name, $header_img_name) {
@@ -45,7 +45,7 @@ class UserController extends Controller
             if (!empty($request->avatar_img)) {
 
                 // アバター画像にパスをセット
-                $user->avatar_img_src = '/storage/avatar_img/' . $avatar_img_name;
+                $user->avatar_img_src = 'avatar_img/' . $avatar_img_name;
 
                 // 画像をストレージに上書き保存
                 $request->avatar_img->storeAs('public/avatar_img', $avatar_img_name);
@@ -55,7 +55,7 @@ class UserController extends Controller
             if (!empty($request->header_img)) {
 
                 // ヘッダー画像にパスをセット
-                $user->header_img_src = '/storage/header_img/' . $header_img_name;
+                $user->header_img_src = 'header_img/' . $header_img_name;
 
                 // 画像をストレージに上書き保存
                 $request->header_img->storeAs('public/header_img', $header_img_name);

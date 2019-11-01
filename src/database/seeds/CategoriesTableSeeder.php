@@ -18,19 +18,19 @@ class CategoriesTableSeeder extends Seeder
         $categories = [
             ['category_name' => '本',
             'category_description' => '本は教養の源泉。あなたの人生を変えた本を紹介してください。',
-            'category_url' => 'http://localhost:8888/category/book'
+            'category_slug' => 'book'
             ],
             ['category_name' => '雑貨',
             'category_description' => '日々の生活に彩をもたらす雑貨。オススメの雑貨をみんなに共有しましょう！',
-            'category_url' => 'http://localhost:8888/category/daily-necessaties'
+            'category_slug' => 'daily-necessaties'
             ],
             ['category_name' => '化粧品',
             'category_description' => 'あなたのお気に入りの化粧品を紹介してください！',
-            'category_url' => 'http://localhost:8888/category/cosmetics'
+            'category_slug' => 'cosmetics'
             ],
             ['category_name' => 'その他',
             'category_description' => 'いずれのカテゴリーにも当てはまらない商品はこちら！',
-            'category_url' => 'http://localhost:8888/category/other'
+            'category_slug' => 'other'
             ]
         ];
         

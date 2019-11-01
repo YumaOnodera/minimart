@@ -16,7 +16,7 @@
     <meta property="og:url" content="{{ request()->fullUrl() }}" />
     <meta property="og:title" content="{{ $post->goods_name }}" />
     <meta property="og:description" content="{{ $post->goods_description }}" />
-    <meta property="og:image" content="{{ $post->goods_img_src }}" />
+    <meta property="og:image" content="/storage/{{ $post->goods_img_src }}" />
     @else
     <meta property="og:url" content="{{ request()->fullUrl() }}" />
     <meta property="og:title" content="Minimart(ミニマート) | お気に入りを世界中にシェアしよう" />
@@ -82,7 +82,7 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle p-1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (isset(Auth::user()->avatar_img_src))
-                                    <img class="rounded-circle" src="{{ Auth::user()->avatar_img_src }}" alt="{{ Auth::user()->user_name }}" height="32">
+                                    <img class="rounded-circle" src="/storage/{{ Auth::user()->avatar_img_src }}" alt="{{ Auth::user()->user_name }}" height="32">
                                     @else
                                     <img class="rounded-circle" src="{{ asset('/img/default-avatar.jpeg') }}" alt="{{ Auth::user()->user_name }}" height="32">
                                     @endif

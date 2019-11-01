@@ -15,7 +15,7 @@
                         @if($target == 'store')
                             <img class="goods-img translucent" src="{{ asset('/img/preview.png') }}" alt="商品画像プレビュー">
                         @elseif($target == 'update')
-                            <img class="goods-img translucent" src="{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
+                            <img class="goods-img translucent" src="/storage/{{ $post->goods_img_src }}" alt="{{ $post->goods_name }}">
                         @endif
                         <div class="card-img-overlay p-1">
                             <div class="card-img-inner text-center">
@@ -46,7 +46,7 @@
                     <label for="category" class="font-weight-bold">カテゴリー</label>
                     <select name="category" class="form-control @error('category') is-invalid @enderror">
                         @foreach($categories as $category)
-                        <option value="{{ $category->category_id }}" @if($target == 'update') {{ $post_model->checkSelectedCategory($post->category, $category->category_id) }} @endif>{{ $category->category_name }}</option>
+                        <option value="{{ $category->category_id }}" @if($target == 'update') {{ $post_model->checkSelectedCategory($post->category_id, $category->category_id) }} @endif>{{ $category->category_name }}</option>
                         @endforeach
                     </select>
                     @error('category')

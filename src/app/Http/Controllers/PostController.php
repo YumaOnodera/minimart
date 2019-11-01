@@ -19,7 +19,7 @@ class PostController extends Controller
     {
         // Postsテーブルの値を取得
         $posts = Post::join('users','posts.introducer','=','users.id')
-            ->join('categories','posts.category','=','categories.category_id')
+            ->join('categories','posts.category_id','=','categories.category_id')
             ->whereNull('users.deleted_at')
             ->when($id, function ($query) use ($id) {
                 return $query->where('users.user_id', $id);
@@ -39,7 +39,7 @@ class PostController extends Controller
     {
         // DBよりURIパラメータと同じIDを持つPostsの情報を取得
         $post = Post::join('users','posts.introducer','=','users.id')
-            ->join('categories','posts.category','=','categories.category_id')
+            ->join('categories','posts.category_id','=','categories.category_id')
             ->whereNull('users.deleted_at')
             ->findOrFail($id);
 
@@ -83,10 +83,10 @@ class PostController extends Controller
                 $post = new Post();
                 $post->goods_name = $request->goods_name;
                 $post->goods_description = $request->goods_description;
-                $post->category = $request->category;
+                $post->category_id = $request->category_id;
                 $post->introducer = $id;
                 $post->goods_url = $request->goods_url;
-                $post->goods_img_src = '/storage/goods_img/' . $goods_img_name;
+                $post->goods_img_src = 'goods_img/' . $goods_img_name;
                 $post->save();
 
                 // 画像をストレージに保存
@@ -111,7 +111,7 @@ class PostController extends Controller
     public function edit($id)
     {
         // DBよりURIパラメータと同じIDを持つPostの情報を取得
-        $post = Post::join('categories','posts.category','=','categories.category_id')
+        $post = Post::join('categories','posts.category_id','=','categories.category_id')
             ->findOrFail($id);
 
         $categories = Category::select(
@@ -137,9 +137,10 @@ class PostController extends Controller
 
             $post->goods_name = $request->goods_name;
             $post->goods_description = $request->goods_description;
-            $post->category = $request->category;
+            $post->category_id = $request->category;
             $post->introducer = $user_id;
             $post->goods_url = $request->goods_url;
+            $post->goods_img_src = 'goods_img/' . $goods_img_name;
             $post->save();
 
             // 商品画像が送信された場合
