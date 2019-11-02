@@ -7,6 +7,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends AdminController
 {
@@ -76,13 +78,20 @@ class UserController extends AdminController
 
         $form = new Form(new User);
 
-        $form->text('user_id', __('ユーザーID'));
-        $form->text('user_name', __('ユーザー名'));
-        $form->textarea('introduction', __('紹介文'));
-        $form->image('avatar_img_src', __('アバター画像'))->move('/avatar_img', $avatar_img_name);
-        $form->image('header_img_src', __('ヘッダー画像'))->move('/header_img', $header_img_name);
-        $form->text('site_url', __('サイトURL'));
-        $form->email('email', __('メールアドレス'));
+        $form->text('user_id', __('ユーザーID'))
+        ->rules('required|string|max:15|regex:/^[a-zA-Z0-9_]+$/');
+        $form->text('user_name', __('ユーザー名'))
+        ->rules('required|string|max:15');
+        $form->textarea('introduction', __('紹介文'))
+        ->rules('required|string|max:140|');
+        $form->image('avatar_img_src', __('アバター画像'))->move('/avatar_img', $avatar_img_name)
+        ->rules('nullable|file|image|mimes:jpeg,png,jpg,gif|max:2048');
+        $form->image('header_img_src', __('ヘッダー画像'))->move('/header_img', $header_img_name)
+        ->rules('nullable|file|image|mimes:jpeg,png,jpg,gif|max:2048');
+        $form->text('site_url', __('サイトURL'))
+        ->rules('nullable|string|max:1000');
+        $form->email('email', __('メールアドレス'))
+        ->rules('required|string|email|max:255|' . Rule::unique('users')->ignore(Auth::id()));
 
         return $form;
     }

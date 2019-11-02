@@ -70,10 +70,14 @@ class CategoryController extends AdminController
         
         $form = new Form(new Category);
 
-        $form->text('category_name', __('カテゴリー名'));
-        $form->text('category_description', __('カテゴリー説明'));
-        $form->text('category_slug', __('スラッグ'));
-        $form->image('category_img_src', __('カテゴリー画像'))->move('/categories_img', $category_img_name);
+        $form->text('category_name', __('カテゴリー名'))
+        ->rules('required|string|max:15');
+        $form->text('category_description', __('カテゴリー説明'))
+        ->rules('required|string|max:500');
+        $form->text('category_slug', __('スラッグ'))
+        ->rules('required|string|max:15');
+        $form->image('category_img_src', __('カテゴリー画像'))->move('/categories_img', $category_img_name)
+        ->rules('required|file|image|mimes:jpeg,png,jpg,gif|max:2048');
 
         return $form;
     }

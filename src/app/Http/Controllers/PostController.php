@@ -83,7 +83,7 @@ class PostController extends Controller
                 $post = new Post();
                 $post->goods_name = $request->goods_name;
                 $post->goods_description = $request->goods_description;
-                $post->category_id = $request->category_id;
+                $post->category_id = $request->category;
                 $post->introducer = $id;
                 $post->goods_url = $request->goods_url;
                 $post->goods_img_src = 'goods_img/' . $goods_img_name;

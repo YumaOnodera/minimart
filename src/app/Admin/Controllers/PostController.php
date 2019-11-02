@@ -76,18 +76,26 @@ class PostController extends AdminController
     protected function form()
     {
         $categories = Category::pluck('category_name', 'category_id');
-        
+
         $post_id = preg_replace('/[^0-9]/', "", request()->path());
         $goods_img_name = 'goods' . $post_id . '.png';
 
+        $category_count = Category::All()->count();
+
         $form = new Form(new Post);
 
-        $form->text('goods_name', __('商品名'));
-        $form->textarea('goods_description', __('商品紹介文'));
-        $form->select('category_id', __('カテゴリー'))->options($categories);
-        $form->textarea('goods_url', __('商品URL'));
-        $form->textarea('affiliate_url', __('アフィリエイトURL'));
-        $form->image('goods_img_src', __('商品画像'))->move('/goods_img', $goods_img_name);
+        $form->text('goods_name', __('商品名'))
+        ->rules('required|string|max:50');
+        $form->textarea('goods_description', __('商品紹介文'))
+        ->rules('required|string|max:500');
+        $form->select('category_id', __('カテゴリー'))->options($categories)
+        ->rules('required|integer|max:' . $category_count);
+        $form->textarea('goods_url', __('商品URL'))
+        ->rules('required|string|max:1000');
+        $form->textarea('affiliate_url', __('アフィリエイトURL'))
+        ->rules('nullable|string|max:1000');
+        $form->image('goods_img_src', __('商品画像'))->move('/goods_img', $goods_img_name)
+        ->rules('required|file|image|mimes:jpeg,png,jpg,gif|max:2048');
 
         return $form;
     }

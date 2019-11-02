@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Category;
 
 class PostUpdateRequest extends FormRequest
 {
@@ -13,10 +14,12 @@ class PostUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $category_count = Category::All()->count();
+
         return [
             'goods_name'        => 'required|string|max:50',
             'goods_description' => 'required|string|max:500',
-            'category'          => 'required|integer',
+            'category'          => 'required|integer|max:' . $category_count,
             'goods_url'         => 'required|string|max:1000',
             'goods_img'         => 'file|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
