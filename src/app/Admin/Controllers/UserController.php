@@ -70,13 +70,17 @@ class UserController extends AdminController
      */
     protected function form()
     {
+        $user_id = preg_replace('/[^0-9]/', "", request()->path());
+        $avatar_img_name = 'avatar' . $user_id . '.png';
+        $header_img_name = 'header' . $user_id . '.png';
+
         $form = new Form(new User);
 
         $form->text('user_id', __('ユーザーID'));
         $form->text('user_name', __('ユーザー名'));
         $form->textarea('introduction', __('紹介文'));
-        $form->image('avatar_img_src', __('アバター画像'))->move('/avatar_img');
-        $form->image('header_img_src', __('ヘッダー画像'))->move('/header_img');
+        $form->image('avatar_img_src', __('アバター画像'))->move('/avatar_img', $avatar_img_name);
+        $form->image('header_img_src', __('ヘッダー画像'))->move('/header_img', $header_img_name);
         $form->text('site_url', __('サイトURL'));
         $form->email('email', __('メールアドレス'));
 

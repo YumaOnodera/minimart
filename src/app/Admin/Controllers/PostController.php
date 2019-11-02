@@ -76,6 +76,9 @@ class PostController extends AdminController
     protected function form()
     {
         $categories = Category::pluck('category_name', 'category_id');
+        
+        $post_id = preg_replace('/[^0-9]/', "", request()->path());
+        $goods_img_name = 'goods' . $post_id . '.png';
 
         $form = new Form(new Post);
 
@@ -84,7 +87,7 @@ class PostController extends AdminController
         $form->select('category_id', __('カテゴリー'))->options($categories);
         $form->textarea('goods_url', __('商品URL'));
         $form->textarea('affiliate_url', __('アフィリエイトURL'));
-        $form->image('goods_img_src', __('商品画像'))->move('/goods_img');
+        $form->image('goods_img_src', __('商品画像'))->move('/goods_img', $goods_img_name);
 
         return $form;
     }

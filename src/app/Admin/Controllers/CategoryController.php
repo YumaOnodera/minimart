@@ -65,12 +65,15 @@ class CategoryController extends AdminController
      */
     protected function form()
     {
+        $category_id = preg_replace('/[^0-9]/', "", request()->path());
+        $category_img_name = 'category' . $category_id . '.png';
+        
         $form = new Form(new Category);
 
         $form->text('category_name', __('カテゴリー名'));
         $form->text('category_description', __('カテゴリー説明'));
         $form->text('category_slug', __('スラッグ'));
-        $form->image('category_img_src', __('カテゴリー画像'))->move('/categories_img');
+        $form->image('category_img_src', __('カテゴリー画像'))->move('/categories_img', $category_img_name);
 
         return $form;
     }
