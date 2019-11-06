@@ -123,7 +123,7 @@ class UserController extends Controller
         // パスワードが一致した場合
         if (Hash::check($request->password, $user->password)) {
 
-            // 退会するユーザーがいいねしたPostの情報を取得
+            // 退会するユーザーのいいねしたPostの情報を取得
             $liked_posts = Post::join('likes','posts.post_id','=', 'likes.liked_post')
             ->where('likes.liked_user', $user_id)
             ->get();

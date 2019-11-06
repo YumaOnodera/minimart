@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Post;
 use Carbon\Carbon;
 
 class ForceDeleteUser extends Command
@@ -46,15 +47,22 @@ class ForceDeleteUser extends Command
 
         foreach($users as $user) {
 
+            $posts = Post::where('posts.introducer', $user->id)->get();
+
             $deleted_at = new Carbon($user->deleted_at);
 
-            DB::transaction(function () use ($user, $now, $deleted_at) {
+            if($deleted_at->diffInDays($now) > 30) {
 
-                if($deleted_at->diffInDays($now) > 30) {
+                DB::transaction(function () use ($user, $posts) {
+
                     $user->forceDelete();
-                }
 
-            });
+                    foreach($posts as $post) {
+                        $post->forceDelete();
+                    }
+    
+                });
+            }
 
         }
     }
