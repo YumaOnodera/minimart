@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Post;
 
 class LoginController extends Controller
 {
@@ -46,9 +48,29 @@ class LoginController extends Controller
                     ->where('users.email', $request->email)
                     ->first();
 
+        // 復活するユーザーのいいねしたPostの情報を取得
+        $liked_posts = Post::join('likes','posts.post_id','=','likes.liked_post')
+        ->where('likes.liked_user', $user->id)
+        ->get();
+
         // 論理削除済みのユーザーがログインした場合、アカウントを復活させる
         if (!empty($user) && Hash::check($request->password, $user->password)) {
-            $user->restore();
+
+            DB::transaction(function () use ($liked_posts, $user) {
+
+                if (!empty($liked_posts)) {
+
+                    foreach($liked_posts as $liked_post) {
+
+                        // 復活するユーザーがいいねしたPostのいいね数を元に戻す
+                        $liked_post->like_count += 1;
+                        $liked_post->save();
+                    }
+
+                }
+
+                $user->restore();
+            });
         }
 
         return $this->guard()->attempt(

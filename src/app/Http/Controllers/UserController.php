@@ -131,11 +131,15 @@ class UserController extends Controller
             // トランザクション処理
             DB::transaction(function () use ($liked_posts, $user) {
 
-                foreach($liked_posts as $liked_post) {
+                if (!empty($liked_posts)) {
 
-                    // 退会するユーザーがいいねしたPostのいいね数を減らす
-                    $liked_post->like_count -= 1;
-                    $liked_post->save();
+                    foreach($liked_posts as $liked_post) {
+
+                        // 退会するユーザーがいいねしたPostのいいね数を減らす
+                        $liked_post->like_count -= 1;
+                        $liked_post->save();
+                    }
+                    
                 }
 
                 // ユーザー情報を論理削除
